@@ -5,7 +5,7 @@ from .models import User
 # Returns list of registered users
 def users(request):
     user_list = User.objects.all().values("id", "name", "email", "phone_number", "created_at")
-    return JsonResponse(list(user_list))
+    return JsonResponse(list(user_list), safe=False)
 
 def math_checker(s: str):
     # Boolean values to return a check on each condition

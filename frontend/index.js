@@ -3,20 +3,15 @@ const { readFile } = require('fs').promises;
 
 const app = express();
 
-app.get('/', async (request, response) => {
-    // readFile('./index.html', 'utf8', (err, html) => {
-    //     if (err) {
-    //         response.status(500).send('Error loading index.html');
-    //         return;
-    //     }
+// Serve all static files from current directory
+app.use(express.static('./'));
 
-        
-    // });
+app.get('/', async (request, response) => {
     response.send(await readFile('./index.html', 'utf8'));
 });
 
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT || 9000; 
 
 app.listen(port, () => {
-    console.log(`Running on port http://localhost:${port}`);
+    console.log(`Running on http://localhost:${port}`);
 });

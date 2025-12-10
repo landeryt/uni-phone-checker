@@ -1,14 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">    
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Frontend Application</title>
+    <title>Phone Checker</title>
     <link rel="stylesheet" href="styles.css">
-</html>
+</head>
 <body>
-    <h1>Welcome to My Frontend Application</h1>
-    <p>This is a sample frontend application.</p>
+    <div class="container">
+        <h1>Phone Number Checker</h1>
+        
+        <div class="form-section">
+            <h2>Register User</h2>
+            <form id="registrationForm">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="text" id="phone" placeholder="Phone (6 digits)" maxlength="6" required>
+                <button type="submit">Register</button>
+                <div id="formMessage"></div>
+            </form>
+        </div>
+
+        <div class="table-section">
+            <h2>Registered Users</h2>
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody id="usersBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
