@@ -75,9 +75,6 @@ def math_checker(s: str):
         "sumOddEqualsEven": sumOddEqualsEven,
     }
 
-def count(request):
-    return HttpResponse("Phone count endpoint.")
-
 def validate(request):
     if request.method == "POST":
         # get phone number
@@ -140,4 +137,15 @@ def registration(request):
     return HttpResponse("POST method required.", status=405)
 
 
+def count(request):
+    valid_count = 0
+    
+    for i in range(1000000):
+        phone = str(i).zfill(6)  # pad with zeros to get 6 digits
+        result = math_checker(phone)
+        
+        if result["isValid"]:
+            valid_count += 1
+    
+    return JsonResponse({"numbers": valid_count})
 
