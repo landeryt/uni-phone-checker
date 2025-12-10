@@ -1,4 +1,6 @@
 from django.http import HttpResponse, JsonResponse
+import re
+from .models import User
 
 # Create your views here.
 def index(request):
@@ -95,7 +97,46 @@ def validate(request):
     return HttpResponse("POST method required.", status=405)
 
 def registration(request):
-    return HttpResponse("User registration endpoint.")
+    if request.method == "POST":
+        name = request.POST.get("name", "").strip()
+        email = request.POST.get("email", "").strip()
+        phone_number = request.POST.get("phone_number", "").strip()
+
+        # Basic validation
+        if not name or not email or not phone_number:
+            return JsonResponse({"error": "Name, email, and phone number are required."}, status=400)
+
+        # validate email
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_pattern, email):
+            return JsonResponse({"error": "Invalid email format."}, status=400)
+        
+        # validate phone number
+        phone_result = math_checker(phone_number)
+        if not phone_result["isValid"]:
+            return JsonResponse({"error": "Invalid phone number."}, status=400)
+        
+        # Check for phone number uniqueness
+        if User.objects.filter(phone_number=phone_number).exists():
+            return JsonResponse({"error": "Phone number already registered."}, status=400)
+        
+        # Create and save user
+        try:
+            user = User.objects.create(name=name, email=email, phone_number=phone_number)
+            return JsonResponse({
+                                    "message": "Registration successful.", 
+                                    "user_id": user.id, 
+                                    "name": user.name,
+                                    "email": user.email,
+                                    "phone_number": user.phone_number,
+                                    "created_at": user.created_at.isoformat()
+                                 },
+                                  status=201)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
+
+
+    return HttpResponse("POST method required.", status=405)
 
 
 
