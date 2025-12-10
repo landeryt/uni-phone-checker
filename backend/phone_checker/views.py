@@ -2,9 +2,10 @@ from django.http import HttpResponse, JsonResponse
 import re
 from .models import User
 
-# Create your views here.
-def index(request):
-    return HttpResponse("This is the backend.")
+# Returns list of registered users
+def users(request):
+    user_list = User.objects.all().values("id", "name", "email", "phone_number", "created_at")
+    return JsonResponse(list(user_list))
 
 def math_checker(s: str):
     # Boolean values to return a check on each condition
