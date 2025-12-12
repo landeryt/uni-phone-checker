@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = "http://localhost:8000";
 
 const form = document.getElementById('registrationForm');
 const nameInput = document.getElementById('name');
