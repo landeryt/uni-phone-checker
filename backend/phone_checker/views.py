@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 import re
 from .models import User
 
@@ -75,6 +76,7 @@ def math_checker(s: str):
         "sumOddEqualsEven": sumOddEqualsEven,
     }
 
+@csrf_exempt
 def validate(request):
     if request.method == "POST":
         # get phone number
@@ -94,6 +96,7 @@ def validate(request):
             return JsonResponse({"error": str(e)}, status=400)
     return HttpResponse("POST method required.", status=405)
 
+@csrf_exempt
 def registration(request):
     if request.method == "POST":
         name = request.POST.get("name", "").strip()

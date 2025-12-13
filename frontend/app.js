@@ -28,7 +28,7 @@ form.addEventListener('submit', async (e) => {
 
     // Validate phone with backend
     try {
-        const validateRes = await fetch(`${BACKEND_URL}/api/phone/validate/`, {
+        const validateRes = await fetch(`${BACKEND_URL}/api/phone/validate`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `phone_number=${encodeURIComponent(phone)}`
@@ -42,7 +42,7 @@ form.addEventListener('submit', async (e) => {
         }
 
         // Register user
-        const registerRes = await fetch(`${BACKEND_URL}/api/registration/`, {
+        const registerRes = await fetch(`${BACKEND_URL}/api/registration`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone_number=${encodeURIComponent(phone)}`
@@ -66,7 +66,7 @@ form.addEventListener('submit', async (e) => {
 // Load and display users
 async function loadUsers() {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/users/`);
+        const res = await fetch(`${BACKEND_URL}/api/users`);
         const users = await res.json();
 
         usersBody.innerHTML = '';
