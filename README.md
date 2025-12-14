@@ -1,1 +1,1 @@
- 
+ To start, navigate the terminal to the uni-phone-checker folder and execute `docker-compose up --build`. Wait up to 60 seconds for the program to launch, then you may enjoy the application at `http://localhost:9000`
